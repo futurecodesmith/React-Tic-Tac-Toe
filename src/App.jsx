@@ -64,9 +64,8 @@ class Row extends Board {
   populateRow() {
     var boxes = [];
     for (let i = 0; i < 3; i += 1) {
-      boxes.push(<Box change={this.props.change} state={this.props.state} key={i} boxKey={i} rowKey={this.props.rowKey}/>)
+      boxes.push(<Box change={this.props.change} state={this.props.state} key={i} boxVal={{rowKey: this.props.rowKey, boxKey: i}} boxKey={i} rowKey={this.props.rowKey}/>)
     }
-    //console.log(this.props.rowKey)
     return boxes;
   }
 
@@ -96,6 +95,7 @@ class Box extends Row {
       this.icon = 'X' 
       this.props.change()
     }
+    //checkIfGameOver()
    /* 
    check if game over
 
@@ -105,8 +105,13 @@ class Box extends Row {
   */
   }
 
+  checkIfGameOver() {
+    
+  }
+
   render() {
-    console.log('ROW:', this.props.rowKey, 'BOX:', this.props.boxKey)
+    // console.log('ROW:', this.props.rowKey, 'BOX:', this.props.boxKey)
+    console.log(this.props.boxVal);
     return (
       <button onClick={this.toggleState.bind(this)} className="button">
         {this.icon}
