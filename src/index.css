@@ -1,5 +1,14 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Helvetica, sans-serif;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ebe9f9+0,c1bfea+65 */
+background: #ebe9f9; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #ebe9f9 0%, #c1bfea 65%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  #ebe9f9 0%,#c1bfea 65%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  #ebe9f9 0%,#c1bfea 65%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebe9f9', endColorstr='#c1bfea',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+  
 }
