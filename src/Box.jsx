@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import Row from './Row';
 
 
-export default class Box extends Component {
+export default class Box extends Row {
   
-  constructor(){
-    super(); 
-    this.state = {
-        text: '-',
-    }
+  constructor(turn){
+    super(turn); 
+    this.icon = '-'
   }
   
   toggleState() {
@@ -28,7 +27,7 @@ export default class Box extends Component {
   render() {
     return (
       <button onClick={this.toggleState.bind(this)} className="button">
-        {this.state.text}
+        {this.props.turn}
       </button>
     )  
   }
