@@ -6,7 +6,8 @@ import './App.css';
     super();
     //this.turn = 'X'
     this.state = {
-      turn: '-',
+      turn: 'X',
+      gameOver: false
     }
   }
 
@@ -37,8 +38,8 @@ class Board extends App {
   populateBoard() {
     var rows = [];
     for (let i = 0; i < 3; i += 1) {
-      rows.push(<Row change={this.props.change} state={this.props.state} key={i} />)
-    } //Need to update props ^^
+      rows.push(<Row change={this.props.change} state={this.props.state} key={i} rowKey={i}/>)
+    } 
     return rows;
   }
 
@@ -63,12 +64,12 @@ class Row extends Board {
   populateRow() {
     var boxes = [];
     for (let i = 0; i < 3; i += 1) {
-      boxes.push(<Box change={this.props.change} state={this.props.state} key={i} />)
+      boxes.push(<Box change={this.props.change} state={this.props.state} key={i} boxKey={i} rowKey={this.props.rowKey}/>)
     }
+    //console.log(this.props.rowKey)
     return boxes;
   }
 
-  
   render() {
     return (
     <div>
@@ -95,9 +96,17 @@ class Box extends Row {
       this.icon = 'X' 
       this.props.change()
     }
+   /* 
+   check if game over
+
+     if over 
+       announce winner
+       reset board
+  */
   }
 
   render() {
+    console.log('ROW:', this.props.rowKey, 'BOX:', this.props.boxKey)
     return (
       <button onClick={this.toggleState.bind(this)} className="button">
         {this.icon}
