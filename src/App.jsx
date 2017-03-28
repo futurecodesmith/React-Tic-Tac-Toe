@@ -4,10 +4,10 @@ import './App.css';
  export default class App extends Component {
   constructor(state) {
     super();
-    //this.turn = 'X'
     this.state = {
       turn: 'X',
-      boardState: {}
+      boardState: {},
+      gameOver: false
     }
   }
 
@@ -37,33 +37,33 @@ import './App.css';
     }
     return false;
 
-
-    // if (id === 0 || id === 11 || id === 22 || id === 2 || id === 20) {
-    //   return this.stateAt(0) === this.stateAt(11) && this.stateAt(11) === this.stateAt(22) ? true : 
-    //         this.stateAt(2) === this.stateAt(11) && this.stateAt(11) === this.stateAt(20) 
-    // } return false; 
   }
 
   checkIfGameOver(id) {
     return this.checkColumn(id) ? true : 
            this.checkRow(id) ? true : 
-           this.checkDiagonal(id) 
+           this.checkDiagonal(id) ? true : 
+           Object.keys(this.state.boardState).length === 9
   }
 
   changeState(id) {
     let newBoard = this.state.boardState;
     if (this.state.turn === 'X') {
-      newBoard[id] = 'O' 
-      this.setState(Object.assign( this.state, { turn: 'O', boardState: newBoard } ));
+      newBoard[id] = 'X' 
+      this.setState(Object.assign( this.state, { turn: 'O'} ));
     } else {
-       newBoard[id] = 'X' 
-      this.setState(Object.assign( this.state, { turn: 'X', boardState: newBoard } ));
+       newBoard[id] = 'O' 
+      this.setState(Object.assign( this.state, { turn: 'X'} ));
     }
-      if (this.checkIfGameOver(id)) {
+    if (this.checkIfGameOver(id)) {
+      if (  Object.keys(this.state.boardState).length === 9) {
+        this.setState(Object.assign( this.state, {winner: 'It is a Tie'} ))
+      } else {
         this.setState(Object.assign( this.state, {winner: newBoard[id] + ' WINS!!!!'} ))
-
-        }
+      }
+    }
   }
+
 
   renderWinner() {
     return (
@@ -72,12 +72,22 @@ import './App.css';
 
   }
 
+  newGame() {
+    location.reload();
+  }
+
   render() {
     return (
     <div className="container">
-      <h1>Tic Tac Toe</h1>
-      <Board change={this.changeState.bind(this)} state={this.state} />
-      {this.renderWinner()}
+      <div>
+        <h1>Tic Tac Toe</h1>
+        <Board change={this.changeState.bind(this)} state={this.state} />
+        {this.renderWinner()}
+      </div>
+      <div>
+        {this.state.turn}
+        <button onClick={this.newGame} id="newGame-button">New Game</button>
+      </div>
     </div>
     )
   }
@@ -143,18 +153,10 @@ class Box extends Row {
   toggleState() {
     if (this.icon === '-') {
       this.props.state.turn === 'X' ?
-      this.icon = 'O' :
-      this.icon = 'X' 
+      this.icon = 'X' :
+      this.icon = 'O' 
       this.props.change(this.props.id);
     }
-    //checkIfGameOver()
-   /* 
-   check if game over
-
-     if over 
-       announce winner
-       reset board
-  */
   }
 
  
